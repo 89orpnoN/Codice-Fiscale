@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style/StyleSheet.css">
+        <title>sabaku's workshop</title>
+        <script src="MiscFiles\Comuni.js" async></script>
+        <script src="Code\Sabakus Personal Lib.js" async></script>
+        <script src="Code\main.js" async></script>
+    </head>
+
+    <body>
+        <h1>
+            Caccia al tesoro
+        </h1><datagrid></datagrid>
+        <form >
+            <p1>Inserire il cognome</p1><br>
+            <input type="text" id="Cognome" name="fname" class="userInput" ><br>
+            <p1>Inserire il nome</p1><br>
+            <input type="text" name="fname" id="Nome" class="userInput"><br><br>
+            <p1>Inserire la data di nascita</p1><br>
+            <input type="date" name="fname" id="Nascita" class="userInput"><br><br>
+            <p1>Inserire il sesso</p1><br>
+            <input type="Radio" name="Maschio" id="Sesso" value="Maschio" class="userInput" checked="true"><label for="sesso">Maschio</label><br>
+            <input type="radio" name="Femmina" id="Sesso" value="Femmina" class="userInput"><label for="sesso">Femmina</label><br><br>
+            <select name="comuni" id="Comune" class="userInput">
+
+            </select><br><br>
+            
+            <button type="button" value="Submit" onclick="Main()">Clicca per Calcolare l'anno di nascita</button>
+        </form>
+        <table Border="3" id="tabella caselle" > <!--tabella-->
+            
+        </table>
+
+        
+    </body>
+</html>
