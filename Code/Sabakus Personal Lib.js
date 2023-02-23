@@ -5,11 +5,15 @@ function getDati(userInputsClass){ //prende una classe in cui sono contenuti deg
     inputsArr = document.getElementsByClassName(userInputsClass)
     inputsClass = {}
     for(i=0;i<inputsArr.length;i++){
-        if (inputsArr[i].type == "radio" && !inputsArr[i]             ){ //skippa se il radio button non è attivo
+        if (inputsArr[i].type == "radio" && !inputsArr[i].checked){ //skippa se il radio button non è attivo
             continue 
         }
-        Object.defineProperty(inputsClass,inputsArr[i].id, {value:inputsArr[i].value})
-
+        try {
+            Object.defineProperty(inputsClass,inputsArr[i].id, {value:inputsArr[i].value})
+        } catch (error) {
+            console.log("qualcosa è andato storto nel raccoglimento dell'userinput N: " + i )
+            
+        }
     }
     UserInputObj = inputsClass
     return UserInputObj
@@ -117,14 +121,17 @@ function print(variable){ //non la usare, crea confusione sull'origine del conso
 }
 
 function pythonSelectElements(text,firstSeparator,lastSeparator){ // in python: a = stringa[5:9]
-    element = ""
+    if (lastSeparator==undefined){
+        lastSeparator = text.length
+    }
+    element = ""    //sono un pollo(), esiste già una funzione chiamata slice() che fa esattamente questo
     for(let i=0;i<lastSeparator-firstSeparator;i++){
         element += text[firstSeparator+i]
     }
     return element
 }
 
-function populateSelect(SelectObj,textContentArr,valueArr){
+function populateSelect(SelectObj,textContentArr,valueArr){ //prende come argomenti il select e crea delle option che hanno come value un valore di valueArr e hanno un child di un valore di textContentArr
     for(let el=0;el<valueArr.length;el++){
         sel = document.createElement("option")
         sel.textContent = textContentArr[el]
@@ -134,7 +141,7 @@ function populateSelect(SelectObj,textContentArr,valueArr){
     return SelectObj
 }
 
-function OrderArr(array){
+function OrderArr(array){ //mette un array numerico in ordine decrescente (può funzionare anche se i termini sono compatibili con l'operatore "<")
     while(true){
         changes = false
         for(i=0;i<array.length-1;i++){
@@ -151,9 +158,9 @@ function OrderArr(array){
     }
     return array
 }
-
-function createArrFromSeparator(text,separatorArr){
-    lastSeparator = 0
+//funzione non testata
+function createArrFromSeparator(text,separatorArr){ //prende una stringa e un array di stringhe (devono essere lunghe un carattere), dopodiche spezzetta la stringa secondo i separatori che trova e associa le sottostringhe precedenti un determinato separatore all'array appartenente al separatore
+    lastSeparator = 0 
     Arrays = Array(separatorArr.length)
     for(i=0;i<Arrays.length;i++){
         Arrays[i] = []
@@ -184,15 +191,16 @@ function createArrFromSeparator(text,separatorArr){
     }
     return Arrays
 }
-
-function createArrInput(text,separatorArr,Amount){
+//funzione non testata
+function createArrInput(text,separatorArr,Amount){ //crea un numero (Amount) di array e aggiunge le sottostringhe in ordine di apparizione ad un array
     lastSeparator = 0
     Arrays = Array(Amount)
     for(i=0;i<Arrays.length;i++){
         Arrays[i] = []
     }
     let nextSeparators = []
-    brake == false
+    brake = false
+    SeparatorCount = 0
     while (brake){
     for (let j = 0; j < separatorArr.length; j++) {
         nextSeparators.push(text.find(element => element==separatorArr[j]))
@@ -213,9 +221,40 @@ function createArrInput(text,separatorArr,Amount){
     }
     element = pythonSelectElements(text,lastSeparator,nextSeparator)
     text = pythonSelectElements(text,nextSeparator,text.length)
-    Arrays[SeparatorNum].push(element)
+    Arrays[SeparatorCount%Amount].push(element)
+    SeparatorCount++
     }
     return Arrays
+}
+
+function ExtractFromString(string,regEx,Amount){
+    DoNotStringify = false
+    if (Amount == undefined){
+        Amount=string.length
+    }
+    NextSelectedChars = []
+    for(i=0;i<Amount;i++){
+        if(string.length==0){
+            break
+        }
+        NextSelectedChars.push(string[string.search(regEx)])
+        string = pythonSelectElements(string,i+1,string.length)
+    }
+    NextSelectedChars.forEach(element => {
+        if (element.length =! 1){
+            DoNotStringify = true
+        }
+    });
+    if (!DoNotStringify){
+        NextSelectedChars += ""
+        NextSelectedChars = NextSelectedChars.replaceAll(",","")
+    }
+    return NextSelectedChars
+
+}
+
+function Alphabet(){ //pigrisia -omeleto
+    return "qwertyuuiopasdfghjklzxcvbnm".sort()
 }
 
 function pollo(){ //possa il re di inghilterra perseguitarmi, io finirò questa funzione (eventualmente)

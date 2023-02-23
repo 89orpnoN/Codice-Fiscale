@@ -2,7 +2,7 @@
     <head>
         <link rel="stylesheet" href="style/StyleSheet.css">
         <title>sabaku's workshop</title>
-        <script src="MiscFiles\Comuni.js" async></script>
+        <script src="Code\comuniArr.js" async></script>
         <script src="Code\Sabakus Personal Lib.js" async></script>
         <script src="Code\main.js" async></script>
     </head>
@@ -13,9 +13,9 @@
         </h1><datagrid></datagrid>
         <form >
             <p1>Inserire il cognome</p1><br>
-            <input type="text" id="Cognome" name="fname" class="userInput" ><br>
+            <input type="text" id="Cognome" name="fname" class="userInput" value="Feltrin"><br>
             <p1>Inserire il nome</p1><br>
-            <input type="text" name="fname" id="Nome" class="userInput"><br><br>
+            <input type="text" name="fname" id="Nome" class="userInput" value="Franco"><br><br>
             <p1>Inserire la data di nascita</p1><br>
             <input type="date" name="fname" id="Nascita" class="userInput"><br><br>
             <p1>Inserire il sesso</p1><br>
@@ -27,10 +27,8 @@
             
             <button type="button" value="Submit" onclick="Main()">Clicca per Calcolare l'anno di nascita</button>
         </form>
-        <table Border="3" id="tabella caselle" > <!--tabella-->
-            
-        </table>
-
+        <p1>Il Codice Fiscale è:</p1><br>
+        <p1 id="Risultato"></p1>
         
     </body>
 </html>
