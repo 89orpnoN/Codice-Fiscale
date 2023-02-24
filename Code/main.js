@@ -21,10 +21,7 @@ function Implant(elaboratedData){
 }
 function VerifyUserData(UserData){
   cancontinue = true
-  print(Object.getOwnPropertyNames(UserData))
   Object.getOwnPropertyNames(UserData).forEach(key => {
-    print(key)
-    print(UserData[key])
     if(UserData[key] == undefined || UserData[key] == ""){
       cancontinue = false
     }
@@ -49,7 +46,7 @@ function elaborateNomeOCognome(Stringa){
   ReturnString = ""
   MaxChars = 3
   Regex = /[^aeiou][A-Z]/i
-  EmergencyRegex = /[^aeiou]/i
+  EmergencyRegex = /[aeiou]/i
   ReturnString += ExtractFromString(Stringa,Regex,MaxChars)
   if(ReturnString.length<MaxChars){
     ReturnString += ExtractFromString(Stringa,EmergencyRegex,MaxChars-ReturnString.length)
